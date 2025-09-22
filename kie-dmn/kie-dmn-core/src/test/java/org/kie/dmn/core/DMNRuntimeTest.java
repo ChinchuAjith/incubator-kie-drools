@@ -3716,4 +3716,54 @@ public class DMNRuntimeTest extends BaseInterpretedVsCompiledTest {
         assertThat(dmnResult.getContext().get("MyOutput")).isEqualTo("Hello, world!");
     }
 
+    @Test
+    void testFeelModel() {
+        DMNRuntime runtime = DMNRuntimeUtil.createRuntime("testmodels/FeelModel.dmn", this.getClass());
+        DMNModel dmnModel = runtime.getModel("http://www.trisotech.com/definitions/feelModel", "FEEL Model");
+        assertThat(dmnModel).isNotNull();
+        assertThat(dmnModel.hasErrors()).isFalse();
+
+        DMNContext dmnContext = runtime.newContext();
+
+        final DMNResult dmnResult = runtime.evaluateAll(dmnModel, dmnContext);
+        assertThat(dmnResult).isNotNull();
+        assertThat(dmnResult.getDecisionResultByName("sum").getResult()).isNull();
+        assertThat(dmnResult.getDecisionResultByName("mean").getResult()).isNull();
+        assertThat(dmnResult.getDecisionResultByName("lowercase").getResult()).isNull();
+        assertThat(dmnResult.getDecisionResultByName("checkBoolean").getResult()).isNull();
+    }
+
+    @Test
+    void testBFeelModel() {
+        DMNRuntime runtime = DMNRuntimeUtil.createRuntime("testmodels/B-FeelModel.dmn", this.getClass());
+        DMNModel dmnModel = runtime.getModel("http://www.trisotech.com/definitions/bFeelModel", "B-FEEL Model");
+        assertThat(dmnModel).isNotNull();
+        assertThat(dmnModel.hasErrors()).isFalse();
+        DMNContext dmnContext = runtime.newContext();
+
+        final DMNResult dmnResult = runtime.evaluateAll(dmnModel, dmnContext);
+        assertThat(dmnResult).isNotNull();
+        assertThat(dmnResult.getDecisionResultByName("sum").getResult()).isEqualTo(BigDecimal.valueOf(4));
+        assertThat(dmnResult.getDecisionResultByName("mean").getResult()).isEqualTo(BigDecimal.valueOf(2));
+        assertThat(dmnResult.getDecisionResultByName("lowercase").getResult()).isEqualTo("");
+        assertThat(dmnResult.getDecisionResultByName("checkBoolean").getResult()).isEqualTo(false);
+    }
+
+    @Test
+    void testInheritedValueReuse() {
+        DMNRuntime runtime = DMNRuntimeUtil.createRuntime(
+                "testmodels/InheritedModel.dmn", this.getClass());
+
+        DMNModel inheritedModel = runtime.getModel("http://www.trisotech.com/definitions/InheritedModel", "InheritedModel");
+        assertThat(inheritedModel).isNotNull();
+        assertThat(inheritedModel.hasErrors()).isFalse();
+
+        DMNContext context = runtime.newContext();
+        context.set("age", 20);
+
+        DMNResult result = runtime.evaluateAll(inheritedModel, context);
+        assertThat(result.getDecisionResultByName("CheckAge").getResult()).isEqualTo("Adult");
+        assertThat(result.getDecisionResultByName("InheritedAccess").getResult()).isEqualTo("Adult");
+    }
+
 }
