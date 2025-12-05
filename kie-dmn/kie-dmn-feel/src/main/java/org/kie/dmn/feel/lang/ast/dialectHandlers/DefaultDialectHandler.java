@@ -698,7 +698,7 @@ public abstract class DefaultDialectHandler implements DialectHandler {
      * @param operationMap : the map of CheckedPredicate to BiFunction defining available operations
      * @return : the result of applying the matched operation, or null if the operation is undefined or produces no result
      */
-    private Object executeOperation(
+    static Object executeOperation(
             Object left,
             Object right,
             EvaluationContext ctx,

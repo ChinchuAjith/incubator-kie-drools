@@ -26,25 +26,6 @@ import static org.kie.dmn.feel.util.BooleanEvalHelper.getBooleanOrDialectDefault
 
 class BooleanEvalHelperTest {
 
-    //TODO Will move to FeelDialectTest clss
-    /*
-     * @Test
-     * void numericValuesComparative() {
-     * assertThat(BooleanEvalHelper.compare(BigDecimal.valueOf(1), BigDecimal.valueOf(2), (l, r) -> l.compareTo(r) < 0, () -> null, () -> null)).isTrue();
-     * assertThat(BooleanEvalHelper.compare(1.0, 2.0, (l, r) -> l.compareTo(r) < 0, () -> null, () -> null)).isTrue();
-     * assertThat(BooleanEvalHelper.compare(1, 2, (l, r) -> l.compareTo(r) > 0, () -> null, () -> null)).isFalse();
-     * assertThat(BooleanEvalHelper.compare(BigDecimal.valueOf(1), 2, (l, r) -> l.compareTo(r) > 0, () -> null, () -> null)).isFalse();
-     * assertThat(BooleanEvalHelper.compare(1, BigDecimal.valueOf(2), (l, r) -> l.compareTo(r) < 0, () -> null, () -> null)).isTrue();
-     * assertThat(BooleanEvalHelper.compare(BigDecimal.valueOf(1), 2.3, (l, r) -> l.compareTo(r) == 0, () -> null, () -> null)).isFalse();
-     * assertThat(BooleanEvalHelper.compare(1.2, BigDecimal.valueOf(1.2), (l, r) -> l.compareTo(r) == 0, () -> null, () -> null)).isTrue();
-     * assertThat(BooleanEvalHelper.compare(BigDecimal.valueOf(1), 0L, (l, r) -> l.compareTo(r) > 0, () -> null, () -> null)).isTrue();
-     * assertThat(BooleanEvalHelper.compare(10L, BigDecimal.valueOf(2), (l, r) -> l.compareTo(r) < 0, () -> null, () -> null)).isFalse();
-     * assertThat(BooleanEvalHelper.compare(BigInteger.valueOf(1), BigInteger.valueOf(2), (l, r) -> l.compareTo(r) == 0, () -> null, () -> null)).isFalse();
-     * assertThat(BooleanEvalHelper.compare(BigInteger.valueOf(1), 2, (l, r) -> l.compareTo(r) < 0, () -> null, () -> null)).isTrue();
-     * assertThat(BooleanEvalHelper.compare(BigInteger.valueOf(1), 2.3, (l, r) -> l.compareTo(r) == 0, () -> null, () -> null)).isFalse();
-     * }
-     */
-
     @Test
     void getBooleanOrDialectDefaultFEEL() {
         assertThat(getBooleanOrDialectDefault(false, FEELDialect.FEEL)).isEqualTo(Boolean.FALSE);
